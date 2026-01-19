@@ -1,0 +1,231 @@
+{
+  "info": {
+    "_postman_id": "1ca87aff-9cab-4abf-beb9-7e620dc8e476",
+    "name": "ecommerce-api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "create-product",
+      "id": "6c182d7f-fd2e-4630-a695-0a3cac75633b",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get-products",
+      "id": "7522c6d1-b1a3-4830-8361-661ce37a075d",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "add-product-to cart",
+      "id": "e389d197-abc8-435f-9340-9d9a51b212de",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userId\": \"user123\",\r\n  \"productId\": \"696e2b0f086e5aefc5717143\",\r\n  \"quantity\": 2\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8084/api/cart/add",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8084",
+          "path": [
+            "api",
+            "cart",
+            "add"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get-cart",
+      "id": "e598ec36-f641-49d5-a4f5-38cb3fe4eafc",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete-cart",
+      "id": "3a298352-a881-4254-afa0-f88c872d5ea2",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8083/api/cart/user123/clear",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8083",
+          "path": [
+            "api",
+            "cart",
+            "user123",
+            "clear"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "place-an-order",
+      "id": "58f74cdb-1e6b-4456-8d8c-22fdf0ddbc4f",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"userId\": \"user123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8084/api/orders",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8084",
+          "path": [
+            "api",
+            "orders"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get-order history of a user",
+      "id": "8362f0c8-6f11-4c78-a383-fcbee904a101",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get order by id",
+      "id": "4d68a01e-bd9b-4e68-b09f-75ce4b98b932",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "payment of an order by its id",
+      "id": "6bba7df1-e0a6-47ce-88dc-fb0ea6835f89",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"orderId\": \"696e2c26086e5aefc5717146\",\r\n    \"amount\": 10000\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8084/api/payments/create",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8084",
+          "path": [
+            "api",
+            "payments",
+            "create"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "webhook processing (mock)",
+      "id": "6bd24479-1b03-43e5-91e0-411ef419de83",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "cancel order if not paid",
+      "id": "03f3240a-082c-4995-a950-6b809cff7097",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8084/api/orders/696e2415086e5aefc5717141/cancel",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8084",
+          "path": [
+            "api",
+            "orders",
+            "696e2415086e5aefc5717141",
+            "cancel"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "search an item",
+      "id": "b0eafc56-c029-403a-b5a2-724000e70c99",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    }
+  ]
+}

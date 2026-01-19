@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * REST controller for product management.
- * Exposes endpoints to create and list products.
+ * Exposes endpoints to create and list products and search by name.
  *
  * Base path: /api/products
  */
@@ -40,5 +40,15 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts() {
         return ResponseEntity.ok(productService.getAllProducts());
+    }
+
+    /**
+     * Search products by name fragment.
+     *
+     * GET /api/products/search?q=...
+     */
+    @GetMapping("/search")
+    public ResponseEntity<List<Product>> searchProducts(@RequestParam("q") String q) {
+        return ResponseEntity.ok(productService.searchProducts(q));
     }
 }

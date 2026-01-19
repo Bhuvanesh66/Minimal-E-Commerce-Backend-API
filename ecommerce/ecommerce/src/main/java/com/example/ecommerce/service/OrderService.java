@@ -101,4 +101,50 @@ public class OrderService {
         return orderRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found"));
     }
+
+    /**
+     * Retrieve all orders for a user.
+     *
+     * @param userId id of the user
+     * @return list of orders
+     */
+    public List<Order> getOrdersByUser(String userId) {
+        return orderRepository.findByUserId(userId);
+    }
+
+    /**
+     * Cancel an order if it's not PAID. Restores stock for each OrderItem and
+     * updates the order status to CANCELLED. Operation is transactional.
+     *
+     * @param orderId id of the order to cancel
+     * @return updated Order
+     * @throws IllegalStateException if order is already PAID or not found
+     */
+    @Transactional
+    public Order cancelOrder(String orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new IllegalStateException("Order not found: " + orderId));
+
+        String status = order.getStatus();
+        if ("PAID".equalsIgnoreCase(status)) {
+            throw new IllegalStateException("Cannot cancel a paid order");
+        }
+        if ("CANCELLED".equalsIgnoreCase(status)) {
+            return order;
+        }
+
+        // restore stock for each item
+        if (order.getItems() != null) {
+            for (OrderItem item : order.getItems()) {
+                productRepository.findById(item.getProductId()).ifPresent(p -> {
+                    Integer current = p.getStock() == null ? 0 : p.getStock();
+                    p.setStock(current + (item.getQuantity() == null ? 0 : item.getQuantity()));
+                    productRepository.save(p);
+                });
+            }
+        }
+
+        order.setStatus("CANCELLED");
+        return orderRepository.save(order);
+    }
 }

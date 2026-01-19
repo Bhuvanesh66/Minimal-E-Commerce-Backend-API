@@ -34,4 +34,14 @@ public class ProductService {
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
+
+    /**
+     * Search products by name (partial, case-insensitive).
+     *
+     * @param q search query
+     * @return list of matching products
+     */
+    public List<Product> searchProducts(String q) {
+        return productRepository.findByNameContainingIgnoreCase(q == null ? "" : q);
+    }
 }
