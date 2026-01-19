@@ -153,15 +153,6 @@ com.example.ecommerce/
 7. Clear cart
 ```
 
-### Screenshots Included
-
-```
-📸 1-all-tests-passing.png (14/14 green)
-📸 2-order-status-PAID.png (webhook proof)
-📸 3-collection-runner-summary.png
-📸 4-cart-with-products.png
-```
-
 ---
 
 ## 🗄️ Database Schema (MongoDB Collections)
@@ -218,7 +209,7 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017/ecommerce
+      uri: mongodb://localhost:27017/ecommerce-db
   application:
     name: ecommerce-api
 ```
@@ -238,9 +229,8 @@ spring:
 | Order Status Update | 10          | ✅ Webhook proved          |
 | Code Quality        | 10          | ✅ Clean structure         |
 | Postman Collection  | 10          | ✅ 14 tests included       |
-| Razorpay Bonus      | +10         | ✅ Code ready              |
 | Bonus APIs          | +15         | ✅ All 3 implemented       |
-| **Total**           | **120/100** | **A+**                     |
+            
 
 ---
 
@@ -251,7 +241,7 @@ spring:
 ./mvnw spring-boot:run
 
 # Test products
-curl -X POST http://localhost:8080/api/products \
+curl -X POST http://localhost:8083/api/products \
   -H "Content-Type: application/json" \
   -d '{"name":"Laptop","price":50000,"stock":10}'
 
