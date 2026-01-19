@@ -45,7 +45,7 @@ cd ecommerce-api
 ### Verify Running
 
 ```bash
-curl http://localhost:8080/api/products
+curl http://localhost:8083/api/products
 # Should return [] or existing products
 ```
 
@@ -213,7 +213,7 @@ orders: [
 
 ```yaml
 server:
-  port: 8080
+  port: 8083
 
 spring:
   data:
@@ -281,5 +281,5 @@ curl -X POST http://localhost:8080/api/products \
 
 ---
 
-**Author**: Bhuvanesh
+**Author**: Bhuvanesh M S
 **Last Updated**: January 19, 2026
