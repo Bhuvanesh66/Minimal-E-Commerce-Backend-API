@@ -14,6 +14,11 @@ import java.time.Instant;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * PaymentService manages payment lifecycle:
+ * - initiatePayment creates a PENDING payment record and simulates an external bank callback
+ * - processWebhook handles incoming payment webhook events and updates payment/order statuses
+ */
 @Service
 public class PaymentService {
 
@@ -26,6 +31,13 @@ public class PaymentService {
     // We will use this to call our OWN webhook to simulate the bank
     private final RestTemplate restTemplate = new RestTemplate();
 
+    /**
+     * Initiate payment for the given order. Creates a pending payment record and
+     * asynchronously simulates an external gateway webhook (mock).
+     *
+     * @param request contains orderId and amount
+     * @return saved Payment record with generated paymentId
+     */
     public Payment initiatePayment(PaymentRequest request) {
         // 1. Check if order exists
         Order order = orderRepository.findById(request.getOrderId())
@@ -73,6 +85,12 @@ public class PaymentService {
         return savedPayment;
     }
 
+    /**
+     * Process a payment webhook payload: update the Payment status and set the
+     * corresponding Order status to PAID or FAILED depending on the payload.
+     *
+     * @param payload incoming webhook data with orderId, paymentId and status
+     */
     // This handles the Webhook (Callback)
     public void processWebhook(PaymentWebhookRequest payload) {
         // 1. Update Payment Status

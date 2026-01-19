@@ -1,10 +1,14 @@
+# Application name
 spring:
   application:
     name: ecommerce-api
   data:
     mongodb:
+      # MongoDB connection URI (change as needed for your environment)
       uri: mongodb://localhost:27017/ecommerce-db
+      # Name of the MongoDB database to use
       database: ecommerce-db
 
+# Server port for the application
 server:
   port: 8083

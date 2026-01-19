@@ -13,6 +13,11 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Service that handles order creation and retrieval.
+ * The createOrder operation is transactional to ensure consistency between
+ * order persistence and cart clearing.
+ */
 @Service
 public class OrderService {
 
@@ -28,6 +33,17 @@ public class OrderService {
     @Autowired
     private CartService cartService; // To reuse clearCart
 
+    /**
+     * Create an order from the user's current cart.
+     * Steps:
+     * 1) Read cart items, 2) snapshot product details into order items,
+     * 3) compute total and save order, 4) clear the cart.
+     *
+     * Annotated with @Transactional so failures roll back the entire operation.
+     *
+     * @param request create order request containing userId
+     * @return saved Order
+     */
     @Transactional // Ensures if one part fails, everything rolls back
     public Order createOrder(CreateOrderRequest request) {
         // 1. Get cart items
@@ -75,6 +91,12 @@ public class OrderService {
         return savedOrder;
     }
 
+    /**
+     * Retrieve an order by id.
+     *
+     * @param orderId id of the order
+     * @return the found Order
+     */
     public Order getOrder(String orderId) {
         return orderRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found"));
